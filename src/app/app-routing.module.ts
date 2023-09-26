@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PersonalOfferComponent } from './personal-offer/personal-offer.component';
-import { PersonalFormComponent } from './personal-form/personal-form.component'; 
-import { SummaryComponent } from './summary/summary.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/personal-offer', pathMatch: 'full' },  // default route
-  { path: 'personal-offer/:jobOfferSecretAccessToken', component: PersonalOfferComponent },
-  { path: 'personal-form/:jobOfferSecretAccessToken', component: PersonalFormComponent },
-  { path: 'summary', component: SummaryComponent }
+  { path: 'personal-offer/:jobOfferSecretAccessToken', loadChildren: () => import('./personal-offer/personal-offer.module').then(m => m.PersonalOfferModule) },
+  { path: 'personal-form/:jobOfferSecretAccessToken', loadChildren: () => import('./personal-form/personal-form.module').then(m => m.PersonalFormModule) },
+  { path: 'summary', loadChildren: () => import('./summary/summary.module').then(m => m.SummaryModule) }
 ];
 
 @NgModule({

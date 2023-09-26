@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { PersonalOfferRoutingModule } from './personal-offer-routing.module';
 import { PersonalOfferComponent } from './personal-offer.component';
+import { InputTextModule } from 'primeng/inputtext';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 
@@ -14,7 +15,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     PersonalOfferRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    InputTextModule
   ]
 })
 export class PersonalOfferModule { }
