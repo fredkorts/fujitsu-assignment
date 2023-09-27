@@ -1,9 +1,42 @@
-<div *ngIf="data">
-    <h1>{{ data.title }}</h1>
-    <!-- Other data fields... -->
-
-    <input type="checkbox" [checked]="accepted" (change)="accepted = !accepted">
-    <label>I accept</label>
-
-    <button [disabled]="!accepted" routerLink="/personal-form/12345678">Next</button>
+<div *ngIf="data" class="job-offer-wrapper">
+    <div class="container">
+        <p class="welcome">
+            {{data.welcomeText}}
+        </p>
+        <div class="details">
+            <h3>Tööpakkumise detaillid</h3>
+            <div class="m-0">
+                 <p><span class="descriptor">Töö tiitel</span><span class="value">{{data.contract.positionName}}</span></p>
+                 <p><span class="descriptor">Töö andja</span><span class="value">{{data.contract.structureTreeFullPath.split('/')[0]}}</span></p>
+                 <p><span class="descriptor">Palk (bruto)</span><span class="value">{{data.contract.remunerationGrossAmount}} {{data.contract.remunerationCurrency}}</span></p>
+                 <p><span class="descriptor">Töösuhe algus kuupäev</span><span class="value">{{formattedDate(data.contract.startDate)}}</span></p>
+                 <p><span class="descriptor">Prooviperioodi algus</span><span class="value">{{formattedDate(data.contract.probationaryPeriodStartDate)}}</span></p>
+                 <p><span class="descriptor">Prooviperioodi lõpp</span><span class="value">{{formattedDate(data.contract.probationaryPeriodEndDate)}}</span></p>
+            </div>
+        </div>
+        <div class="details">
+            <h3>Hüved</h3>
+            <div class="benefits">
+                <ul>
+                    <li *ngFor="let benefit of data.benefits">{{benefit}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="details">
+            <h3>Teie andmed</h3>
+            <div class="m-0">
+                <p><span class="descriptor">Täisnimi</span> <span class="value">{{data.applicant.firstName}} {{data.applicant.lastName}}</span></p>
+                <p><span class="descriptor">Tel. nr.</span><span class="value">{{data.contactDetails.phoneNumber}}</span></p>
+                <p><span class="descriptor">E-mail</span><span class="value">{{data.contactDetails.emailAddress}}</span></p>
+            </div>
+            <div class="action-buttons">
+                <div class="checkbox">
+                    <label for="agreement"><span class="value">Olen tööpakkumise läbi lugenud ja nõustun selle tingimustega.</span></label>
+                    <input id="agreement" type="checkbox" [checked]="accepted" (change)="accepted = !accepted">
+                </div>
+            
+                <button [disabled]="!accepted" routerLink="/personal-form/12345678">Kinnita tööpakkumine</button>
+            </div>
+        </div>
+    </div>
 </div>

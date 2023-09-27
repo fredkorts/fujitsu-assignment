@@ -28,4 +28,13 @@ export class PersonalOfferComponent implements OnInit {
     }
     
   }
+
+  formattedDate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('et-EE', { 
+      day: 'numeric', 
+      month: 'long', 
+      year: 'numeric' 
+    });
+  }
 }

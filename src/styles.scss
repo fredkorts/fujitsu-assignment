@@ -1,1 +1,57 @@
-/* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+
+@font-face {
+    font-family: 'CeraProBlack';
+    src: 
+        url('assets/fonts/Cera_Pro_Black.otf') format('otf'),
+        url('assets/fonts/Cera_Pro_Black.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'CeraProBold';
+    src: 
+        url('assets/fonts/Cera_Pro_Bold.otf') format('otf'),
+        url('assets/fonts/Cera_Pro_Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'CeraProLight';
+    src: 
+        url('assets/fonts/Cera_Pro_Light.otf') format('otf'),
+        url('assets/fonts/Cera_Pro_Light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'CeraProMedium';
+    src: 
+        url('assets/fonts/Cera_Pro_Medium.otf') format('otf'),
+        url('assets/fonts/Cera_Pro_Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'CeraProRegularItalic';
+    src: 
+        url('assets/fonts/Cera_Pro_Regular_Italic.otf') format('otf'),
+        url('assets/fonts/Cera_Pro_Regular_Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+$primary: #669BBC;
+$secondary: #003049;
+$tertiary: #FDF0D5;
+
+.p-card-title {
+    color: $secondary;
+}
+
+h1, h2, h3, h4, h5, .descriptor {
+    color: $primary;
+    font-family: 'CeraProMedium', Arial;
+}

@@ -6,6 +6,7 @@ import { PersonalOfferComponent } from './personal-offer.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { FormsModule } from '@angular/forms';
     PersonalOfferRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    InputTextModule
+    InputTextModule,
+    CardModule
   ]
 })
 export class PersonalOfferModule { }

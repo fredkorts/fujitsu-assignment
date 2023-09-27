@@ -1,0 +1,43 @@
+@import 'src/styles.scss';
+
+.job-offer-wrapper {
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .details {
+        margin-bottom: 4rem;
+    }
+    .descriptor {
+        font-weight: bold;
+        margin-right: 0.35rem;
+    }
+    .container {
+        max-width: 750px;
+        margin: 0 2rem;
+        .welcome {
+            font-family: 'CeraProLight', Arial;
+            font-size: 21px;
+            line-height: 1.6;
+            margin: 2rem 0 4rem 0;
+        }
+    }
+    .benefits {
+        ul {
+            li {
+                font-family: 'CeraProLight', Arial;
+            }
+        }
+    }
+    .value {
+        font-family: 'CeraProLight', Arial;
+    }
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 4rem 0;
+    }
+}

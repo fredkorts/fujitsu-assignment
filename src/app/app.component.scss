@@ -1,0 +1,21 @@
+@import 'src/styles.scss';
+
+.header-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $secondary;
+    width: 100%;
+    height: 75px;
+    position: fixed;
+    top:0;
+    left:0;
+    .header {
+        color: $secondary;
+        max-width: 760px;
+        color: #fff;
+    }
+    h1 {
+        color: #fff;
+    }
+}
