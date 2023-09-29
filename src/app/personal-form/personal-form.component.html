@@ -1,17 +1,13 @@
 <form class="personal-form-wrapper" [formGroup]="form" (ngSubmit)="onSubmit()">
-
-  
-
-  <div class="card flex flex-column gap-3">
-    <p-timeline [value]="events" layout="horizontal" align="top">
-        <ng-template pTemplate="content" let-event>
-            {{ event }}
-        </ng-template>
-    </p-timeline>
-  </div>
-
-
-
+  <p-timeline class="timeline" [value]="events" layout="horizontal" align="top">
+    <ng-template pTemplate="content" let-event let-i="index">
+      <div 
+        [ngClass]="{'completed': event.status === 'completed', 'pending': event.status === 'pending'}"
+        (click)="goToStep(event.index)">
+        {{ event.label }}
+      </div>
+    </ng-template>
+  </p-timeline>
   <div *ngIf="currentStep === 1" formGroupName="applicant" class="form-container">
     <span class="form input firstName p-float-label">
       <input pInputText formControlName="firstName" id="firstName" type="text"/>
@@ -49,23 +45,82 @@
     </span>
   </div>
 
-  <div *ngIf="currentStep === 2" formGroupName="contactDetails">
-    <label for="postalAddress">Aadress</label>
-    <input id="postalAddress" formControlName="postalAddress" type="text">
+  <div *ngIf="currentStep === 2" formGroupName="contactDetails" class="form-container">
+    <span class="form input postalAddress p-float-label">
+      <input pInputText formControlName="postalAddress" id="postalAddress" type="text"/>
+      <label htmlFor="postalAddress">Aadress</label>
+      <small id="postalAddress">Lisage oma aadress</small>
+    </span>
 
-    <label for="emailAddress">E-mail</label>
-    <input id="emailAddress" formControlName="emailAddress" type="text">
+    <span class="form input emailAddress p-float-label">
+      <input pInputText formControlName="emailAddress" id="emailAddress" type="text"/>
+      <label htmlFor="emailAddress">E-mail</label>
+      <small id="emailAddress">Lisage oma e-mail</small>
+    </span>
 
-    <label for="phoneNumber">Tel. nr.</label>
-    <input id="phoneNumber" formControlName="phoneNumber" type="text">
+    <span class="form input phoneNumber p-float-label">
+      <input pInputText formControlName="phoneNumber" id="phoneNumber" type="text"/>
+      <label htmlFor="phoneNumber">Tel. nr.</label>
+      <small id="phoneNumber">Lisage oma tel. nr.</small>
+    </span>
   </div>
 
-  <div *ngIf="currentStep === 3" formGroupName="bankAccount">
-    <!-- Bank Account Form Fields -->
+  <div *ngIf="currentStep === 3" formGroupName="bankAccount" class="form-container">
+    <span class="form input recipientName p-float-label">
+      <input pInputText formControlName="recipientName" id="recipientName" type="text"/>
+      <label htmlFor="recipientName">Konto omanik</label>
+      <small id="recipientName">Lisage konto omanik</small>
+    </span>
+
+    <span class="form input iban p-float-label">
+      <input pInputText formControlName="iban" id="iban" type="text"/>
+      <label htmlFor="iban">IBAN</label>
+      <small id="iban">Lisage konto IBAN</small>
+    </span>
   </div>
 
-  <div *ngIf="currentStep === 4" formGroupName="emergencyContact">
-    <!-- Emergency Contact Form Fields -->
+  <div *ngIf="currentStep === 4" formGroupName="emergencyContact" class="form-container">
+    <span class="form input ec_firstName p-float-label">
+      <input pInputText formControlName="ec_firstName" id="ec_firstName" type="text"/>
+      <label htmlFor="ec_firstName">Eesnimi</label>
+      <small id="ec_firstName">Lisage konto hädaabikontakti eesnimi</small>
+    </span>
+    <span class="form input ec_lastName p-float-label">
+      <input pInputText formControlName="ec_lastName" id="ec_lastName" type="text"/>
+      <label htmlFor="ec_lastName">Perekonnanimi</label>
+      <small id="ec_lastName">Lisage konto hädaabikontakti perekonnanimi</small>
+    </span>
+    <span class="form input ec_relationshipType p-float-label">
+      <select id="ec_relationshipType" formControlName="ec_relationshipType">
+        <option value="child">Laps</option>
+        <option value="spouse">Abikaasa</option>
+        <option value="lifepartner">Elukaaslane</option>
+        <option value="father">Isa</option>
+        <option value="mother">Ema</option>
+        <option value="grandfather">Vanaisa</option>
+        <option value="grandmother">Vanaema</option>
+        <option value="brother">Vend</option>
+        <option value="sister">Õde</option>
+        <option value="uncle">Onu</option>
+        <option value="aunt">Tädi</option>
+        <option value="nephew">Õe-/Vennapoeg</option>
+        <option value="niece">Õe-/Vennatütar</option>
+        <option value="friend">Sõber</option>
+        <option value="other">Muu</option>
+      </select>
+      <label htmlFor="ec_relationshipType">Lisage oma suhe oma hädaabikontaktiga</label>
+      <small id="ec_relationshipType">Lisage oma suhe oma hädaabikontaktiga</small>
+    </span>
+    <span class="form input ec_phoneNumber p-float-label">
+      <input pInputText formControlName="ec_phoneNumber" id="ec_phoneNumber" type="text"/>
+      <label htmlFor="ec_phoneNumber">Hädaabikontakti tel. nr.</label>
+      <small id="ec_phoneNumber">Lisage konto hädaabikontakti tel. nr.</small>
+    </span>
+    <span class="form input ec_emailAddress p-float-label">
+      <input pInputText formControlName="ec_emailAddress" id="ec_emailAddress" type="text"/>
+      <label htmlFor="ec_emailAddress">Hädaabikontakti e-mail</label>
+      <small id="ec_emailAddress">Lisage hädaabikontakti e-mail</small>
+    </span>
   </div>
 
   <span class="actions">

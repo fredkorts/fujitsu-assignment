@@ -13,7 +13,7 @@ import { TimelineModule } from 'primeng/timeline';
 
 @NgModule({
   declarations: [
-    PersonalFormComponent
+    PersonalFormComponent,
   ],
   imports: [
     CommonModule,

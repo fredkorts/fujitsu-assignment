@@ -1,8 +1,33 @@
 @import 'src/styles.scss';
 
+:host ::ng-deep {
+    .timeline {
+        margin-bottom: 2rem;
+    }
+    .p-timeline .p-timeline-marker {
+      background-color: red; // Change color of the marker
+      border-radius: 50%; // Make the marker circular
+      width: 20px; // Set width of the marker
+      height: 20px; // Set height of the marker
+      border: 2px solid blue; // Add a border around the marker
+    }
+  
+    .p-timeline .p-timeline-marker.completed {
+      background-color: green; // You can have different styles for different statuses
+    }
+  
+    .p-timeline .p-timeline-marker.pending {
+      background-color: orange;
+    }
+  }
+
 .personal-form-wrapper {
+    display: flex;
+    flex-direction: column;
     margin-top: 15rem;
     .form-container {
+        display: flex;
+        flex-direction: column;
         .form {
             select {
                 font-size: 1rem;
