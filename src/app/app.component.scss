@@ -1,5 +1,10 @@
 @import 'src/styles.scss';
-
+.job-offer-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
 .header-container {
     display: flex;
     justify-content: center;
@@ -18,4 +23,9 @@
     h1 {
         color: #fff;
     }
+}
+
+.body-container {
+    max-width: 750px;
+    margin: 0 2rem;
 }

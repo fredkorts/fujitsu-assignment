@@ -1,1 +1,76 @@
-<p>personal-form works!</p>
+<form class="personal-form-wrapper" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  
+
+  <div class="card flex flex-column gap-3">
+    <p-timeline [value]="events" layout="horizontal" align="top">
+        <ng-template pTemplate="content" let-event>
+            {{ event }}
+        </ng-template>
+    </p-timeline>
+  </div>
+
+
+
+  <div *ngIf="currentStep === 1" formGroupName="applicant" class="form-container">
+    <span class="form input firstName p-float-label">
+      <input pInputText formControlName="firstName" id="firstName" type="text"/>
+      <label htmlFor="firstName">Eesnimi</label>
+      <small id="firstName">Lisage oma eesnimi.</small>
+    </span>
+
+    <span class="form input lastName p-float-label">
+      <input pInputText formControlName="lastName" id="lastName" type="text"/>
+      <label htmlFor="lastName">Perekonnanimi</label>
+      <small id="lastName">Lisage oma perekonnanimi.</small>
+    </span>
+
+    <span class="form input nationalIdentityNumber p-float-label">
+      <input pInputText formControlName="nationalIdentityNumber" id="nationalIdentityNumber" type="text"/>
+      <label htmlFor="nationalIdentityNumber">Isikukood</label>
+      <small id="nationalIdentityNumber">Lisage oma isikukood.</small>
+    </span>
+
+    <span class="form input dateOfBirth p-float-label">
+      <p-inputMask formControlName="dateOfBirth" mask="99/99/9999" placeholder="mm/dd/yyyy"></p-inputMask>
+      <label htmlFor="dateOfBirth">Sünnikuupäev</label>
+      <small id="dateOfBirth">Lisage oma sünnikuupäev.</small>
+    </span>  
+
+    <span class="form input gender p-float-label">
+      <select id="gender" formControlName="gender">
+        <option value="" disabled selected>Valige sugu</option>
+        <option value="male">Mees</option>
+        <option value="female">Naine</option>
+        <option value="Other">Muu</option>
+      </select>
+      <label htmlFor="gender">Sugu</label>
+      <small id="gender">Lisage oma sugu.</small>
+    </span>
+  </div>
+
+  <div *ngIf="currentStep === 2" formGroupName="contactDetails">
+    <label for="postalAddress">Aadress</label>
+    <input id="postalAddress" formControlName="postalAddress" type="text">
+
+    <label for="emailAddress">E-mail</label>
+    <input id="emailAddress" formControlName="emailAddress" type="text">
+
+    <label for="phoneNumber">Tel. nr.</label>
+    <input id="phoneNumber" formControlName="phoneNumber" type="text">
+  </div>
+
+  <div *ngIf="currentStep === 3" formGroupName="bankAccount">
+    <!-- Bank Account Form Fields -->
+  </div>
+
+  <div *ngIf="currentStep === 4" formGroupName="emergencyContact">
+    <!-- Emergency Contact Form Fields -->
+  </div>
+
+  <span class="actions">
+    <button type="button" (click)="previousStep()" class="btn" [disabled]="currentStep === 1" pButton pRipple label="Tagasi" icon="pi pi-chevron-left"></button>
+    <button type="button" (click)="nextStep()" class="btn" [disabled]="currentStep === 4" pButton pRipple label="Edasi" icon="pi pi-chevron-right"></button>
+    <button type="submit" class="btn" [disabled]="form.invalid || currentStep !== 4" pButton pRipple label="Kinnita" icon="pi pi-check"></button>
+  </span>
+</form>

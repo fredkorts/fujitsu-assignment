@@ -34,9 +34,7 @@
                     <label for="agreement"><span class="value">Olen tööpakkumise läbi lugenud ja nõustun selle tingimustega.</span></label>
                     <input id="agreement" type="checkbox" [checked]="accepted" (change)="accepted = !accepted">
                 </div>
-            
-                <button [disabled]="!accepted" routerLink="/personal-form/12345678">Kinnita tööpakkumine</button>
-            </div>
+                <p-button [disabled]="!accepted" label="Kinnita tööpakkumine" styleClass="p-button-raised p-button-text" (click)="confirmOffer()"></p-button>
         </div>
     </div>
 </div>

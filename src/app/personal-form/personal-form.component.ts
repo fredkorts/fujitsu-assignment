@@ -1,6 +1,6 @@
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-personal-form',
@@ -8,21 +8,63 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ['./personal-form.component.scss']
 })
 export class PersonalFormComponent implements OnInit {
-  personalForm!: FormGroup;
-  token: string = '';
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute) {}
+  form!: FormGroup;
+  currentStep = 1;
+  genders: SelectItem[] = [];
+  events: string[] = [];
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.token = this.route.snapshot.params["jobOfferSecretAccessToken"];
-
-    this.personalForm = this.fb.group({
-      firstName: ['', Validators.required],
-      // ...other fields
+    this.events = [
+      "Isiku Andmed", "Kontakt", "Pank", "Hädaabi kontakt"
+    ];
+    this.genders = [
+      {label: 'Mees', value: 'mees'},
+      {label: 'Naine', value: 'naine'},
+      {label: 'Muu', value: 'muu'},
+    ];
+    this.form = this.fb.group({
+      applicant: this.fb.group({
+        firstName: [null, Validators.required],
+        lastName: [null, Validators.required],
+        nationalIdentityNumber: [null],
+        dateOfBirth: [''],
+        gender: [null, Validators.required]
+      }),
+      contactDetails: this.fb.group({
+        postalAddress: [null, Validators.required],
+        phoneNumber: [null, Validators.required],
+        emailAddress: [null, [Validators.required, Validators.email]]
+      }),
+      bankAccount: this.fb.group({
+        recipientName: [null, Validators.required],
+        iban: [null, Validators.required]
+      }),
+      emergencyContact: this.fb.group({
+        firstName: [null, Validators.required],
+        lastName: [null, Validators.required],
+        relationshipType: [null, Validators.required],
+        phoneNumber: [null, Validators.required],
+        emailAddress: [null, [Validators.required, Validators.email]]
+      })
     });
   }
 
-  onSubmit() {
-    localStorage.setItem('formData', JSON.stringify(this.personalForm.value));
+  nextStep(): void {
+    if (this.currentStep < 4) {
+      this.currentStep++;
+    }
+  }
+
+  previousStep(): void {
+    if (this.currentStep > 1) {
+      this.currentStep--;
+    }
+  }
+
+  onSubmit(): void {
+    console.log(this.form.value);
   }
 }
