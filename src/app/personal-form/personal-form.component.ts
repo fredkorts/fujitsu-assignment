@@ -35,8 +35,8 @@ export class PersonalFormComponent implements OnInit, OnDestroy {
       applicant: this.fb.group({
         firstName: [null, Validators.required],
         lastName: [null, Validators.required],
-        nationalIdentityNumber: [null, [Validators.required, nationalIdentityValidator()]],
-        dateOfBirth: [''],
+        nationalIdentityNumber: [null, [Validators.required, nationalIdentityValidator()]],  // Added validator here
+        dateOfBirth: [null],
         gender: [null, Validators.required]
       }),
       contactDetails: this.fb.group({
@@ -93,7 +93,6 @@ export class PersonalFormComponent implements OnInit, OnDestroy {
       {status: this.isFormGroupValid('bankAccount'), label: 'Pank', index: 3},
       {status: this.isFormGroupValid('emergencyContact'), label: 'Hädaabi kontakt', index: 4},
     ];
-    console.log(this.events);
   }
 
   isFormGroupValid(groupName: string): string {
