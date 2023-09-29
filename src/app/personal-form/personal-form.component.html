@@ -1,13 +1,4 @@
 <form class="personal-form-wrapper" [formGroup]="form" (ngSubmit)="onSubmit()">
-  <p-timeline class="timeline" [value]="events" layout="horizontal" align="top">
-    <ng-template pTemplate="content" let-event let-i="index">
-      <div 
-        [ngClass]="{'completed': event.status === 'completed', 'pending': event.status === 'pending'}"
-        (click)="goToStep(event.index)">
-        {{ event.label }}
-      </div>
-    </ng-template>
-  </p-timeline>
   <div *ngIf="currentStep === 1" formGroupName="applicant" class="form-container">
     <span class="form input firstName p-float-label">
       <input pInputText formControlName="firstName" id="firstName" type="text"/>
@@ -22,16 +13,12 @@
     </span>
 
     <span class="form input nationalIdentityNumber p-float-label">
-      <input pInputText formControlName="nationalIdentityNumber" id="nationalIdentityNumber" type="text"/>
-      <label htmlFor="nationalIdentityNumber">Isikukood</label>
-      <span *ngIf="form.get('applicant')?.get('nationalIdentityNumber')?.hasError('invalidNationalIdentity')">
-        Invalid national identity number.
-      </span>      
-      <small id="nationalIdentityNumber">Lisage oma isikukood.</small>
+      <input pInputText formControlName="nationalIdentityNumber" id="nationalIdentityNumber" type="text" (blur)="onBlur()"/>
+      <label htmlFor="nationalIdentityNumber">Isikukood</label>  
     </span>
 
     <span class="form input dateOfBirth p-float-label">
-      <p-inputMask formControlName="dateOfBirth" mask="99/99/9999" placeholder="mm/dd/yyyy"></p-inputMask>
+      <p-inputMask formControlName="dateOfBirth" mask="99/99/99" placeholder="mm/dd/yy"></p-inputMask>
       <label htmlFor="dateOfBirth">Sünnikuupäev</label>
       <small id="dateOfBirth">Lisage oma sünnikuupäev.</small>
     </span>  
@@ -43,7 +30,6 @@
         <option value="female">Naine</option>
         <option value="Other">Muu</option>
       </select>
-      <label htmlFor="gender">Sugu</label>
       <small id="gender">Lisage oma sugu.</small>
     </span>
   </div>

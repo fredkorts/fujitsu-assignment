@@ -9,7 +9,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputMaskModule } from 'primeng/inputmask';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
-import { TimelineModule } from 'primeng/timeline';
 
 @NgModule({
   declarations: [
@@ -24,7 +23,6 @@ import { TimelineModule } from 'primeng/timeline';
     InputMaskModule,
     DropdownModule,
     ButtonModule,
-    TimelineModule
   ]
 })
 export class PersonalFormModule { }

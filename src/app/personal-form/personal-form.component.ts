@@ -72,32 +72,14 @@ export class PersonalFormComponent implements OnInit, OnDestroy {
           }
       });
     });
-
-    this.updateTimelineStatus();
-
-    this.subscriptions.add(
-      this.form.valueChanges.subscribe(() => {
-        this.updateTimelineStatus();
-      })
-    );
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
 
-  updateTimelineStatus(): void {
-    this.events = [
-      {status: this.isFormGroupValid('applicant'), label: 'Isiku Andmed', index: 1},
-      {status: this.isFormGroupValid('contactDetails'), label: 'Kontakt', index: 2},
-      {status: this.isFormGroupValid('bankAccount'), label: 'Pank', index: 3},
-      {status: this.isFormGroupValid('emergencyContact'), label: 'Hädaabi kontakt', index: 4},
-    ];
-  }
-
-  isFormGroupValid(groupName: string): string {
-    const group = this.form.get(groupName);
-    return group && group.valid ? 'completed' : 'pending';
+  onBlur(): void {
+    this.form.get('applicant')?.get('nationalIdentityNumber')?.updateValueAndValidity();
   }
 
   nextStep(): void {
@@ -113,9 +95,7 @@ export class PersonalFormComponent implements OnInit, OnDestroy {
   }
 
   goToStep(step: number): void {
-    console.log("step: ", step);
     this.currentStep = step;
-    console.log("currentStep: ", this.currentStep);
   }
 
   onSubmit(): void {
