@@ -24,6 +24,9 @@
     <span class="form input nationalIdentityNumber p-float-label">
       <input pInputText formControlName="nationalIdentityNumber" id="nationalIdentityNumber" type="text"/>
       <label htmlFor="nationalIdentityNumber">Isikukood</label>
+      <span *ngIf="form.get('applicant')?.get('nationalIdentityNumber')?.hasError('invalidNationalIdentity')">
+        Invalid national identity number.
+      </span>      
       <small id="nationalIdentityNumber">Lisage oma isikukood.</small>
     </span>
 

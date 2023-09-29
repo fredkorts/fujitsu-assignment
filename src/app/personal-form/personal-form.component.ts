@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
 import { JobOfferService } from '../job-offer.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { nationalIdentityValidator } from '../helpers/national-identity.validator';
 
 @Component({
   selector: 'app-personal-form',
@@ -34,7 +35,7 @@ export class PersonalFormComponent implements OnInit, OnDestroy {
       applicant: this.fb.group({
         firstName: [null, Validators.required],
         lastName: [null, Validators.required],
-        nationalIdentityNumber: [null],
+        nationalIdentityNumber: [null, [Validators.required, nationalIdentityValidator()]],
         dateOfBirth: [''],
         gender: [null, Validators.required]
       }),
