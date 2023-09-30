@@ -9,10 +9,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputMaskModule } from 'primeng/inputmask';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
+import { ProgressBarComponent } from '../progress-bar/progress-bar.component';
 
 @NgModule({
   declarations: [
     PersonalFormComponent,
+    ProgressBarComponent
   ],
   imports: [
     CommonModule,
@@ -25,4 +27,5 @@ import { ButtonModule } from 'primeng/button';
     ButtonModule,
   ]
 })
+
 export class PersonalFormModule { }

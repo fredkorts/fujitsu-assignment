@@ -1,4 +1,6 @@
 <form class="personal-form-wrapper" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <app-progress-bar [formStatuses]="getFormStatuses()" [currentStep]="currentStep" (stepClick)="goToStep($event)"></app-progress-bar>
+
   <div *ngIf="currentStep === 1" formGroupName="applicant" class="form-container">
     <span class="form input firstName p-float-label">
       <input pInputText formControlName="firstName" id="firstName" type="text"/>

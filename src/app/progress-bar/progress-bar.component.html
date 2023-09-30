@@ -1,0 +1,12 @@
+<div class="progress-bar">
+    <div *ngFor="let step of steps"
+         [ngClass]="{
+            'active': currentStep === step.index,
+            'completed': step.status === 'completed',
+            'pending': step.status === 'pending'
+         }"
+         (click)="onStepClick(step.index)">
+         <i [class]="'pi ' + step.icon"></i>
+      {{ step.label }}
+    </div>
+</div>

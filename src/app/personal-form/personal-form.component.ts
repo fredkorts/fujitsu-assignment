@@ -82,6 +82,15 @@ export class PersonalFormComponent implements OnInit, OnDestroy {
     this.form.get('applicant')?.get('nationalIdentityNumber')?.updateValueAndValidity();
   }
 
+  getFormStatuses(): string[] {
+    return [
+      this.form.get('applicant')?.valid ? 'completed' : 'pending',
+      this.form.get('contactDetails')?.valid ? 'completed' : 'pending',
+      this.form.get('bankAccount')?.valid ? 'completed' : 'pending',
+      this.form.get('emergencyContact')?.valid ? 'completed' : 'pending',
+    ];
+  }  
+
   nextStep(): void {
     if (this.currentStep < 4) {
       this.currentStep++;
