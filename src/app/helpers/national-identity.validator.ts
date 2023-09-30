@@ -1,6 +1,6 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 
-declare const Isikukood: any;  // Declare the third-party library
+declare const Isikukood: any;
 
 export function nationalIdentityValidator() {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -9,7 +9,7 @@ export function nationalIdentityValidator() {
 
         const identity = new Isikukood(value);
         if (identity && identity.validate()) {
-            // If validated, set gender and age and disable them
+            // If validated, set gender and age.
             const genderControl = control.parent?.get('gender');
             const dateOfBirthControl = control.parent?.get('dateOfBirth');
 
@@ -19,14 +19,11 @@ export function nationalIdentityValidator() {
                 } else if (identity.getGender() === 'female') {
                     genderControl.patchValue('naine');
                 }
-                
 
                 dateOfBirthControl.patchValue(identity.getBirthday());
             }
-
             return null;
         }
-
         return { invalidNationalIdentity: true };
     };
 }

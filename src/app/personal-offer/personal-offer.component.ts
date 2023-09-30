@@ -28,6 +28,7 @@ export class PersonalOfferComponent implements OnInit {
     
   }
 
+  // This function returns a formatted date string.
   formattedDate(dateString: string): string {
     const date = new Date(dateString);
     return date.toLocaleDateString('et-EE', { 
@@ -37,6 +38,7 @@ export class PersonalOfferComponent implements OnInit {
     });
   }
 
+  // This function gets the jobOfferSecretAccessToken and changes the route to /persona-form plus the added token.
   confirmOffer(): void {
     const token = this.route.snapshot.paramMap.get('jobOfferSecretAccessToken');
     if (token) {
