@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, OnChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-progress-bar',
@@ -6,8 +6,10 @@ import { Component, EventEmitter, Input, Output, OnChanges } from '@angular/core
   styleUrls: ['./progress-bar.component.scss']
 })
 export class ProgressBarComponent implements OnChanges {
+
   @Input() currentStep = 1;
-  @Input() formStatuses: string[] = [];  // Add this line
+  @Input() formStatuses: (boolean | undefined)[] = [];
+
   @Output() stepClick = new EventEmitter<number>();
 
   steps = [
@@ -17,12 +19,12 @@ export class ProgressBarComponent implements OnChanges {
     { label: 'Hädaabikontakt', status: "pending", icon: 'pi-heart', index: 4 }
   ];
 
-  ngOnChanges(): void {
-    this.steps.forEach((step, index) => {
-      if (this.formStatuses[index]) {
-        step.status = this.formStatuses[index];
-      }
-    });
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['formStatuses'] && this.formStatuses) {
+      this.steps.forEach((step, index) => {
+        step.status = this.formStatuses[index] ? 'completed' : 'error'; // adjust according to your needs
+      });
+    }
   }
 
   onStepClick(step: number): void {

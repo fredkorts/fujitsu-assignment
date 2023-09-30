@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { nationalIdentityValidator } from '../helpers/national-identity.validator';
 import { ChangeDetectorRef } from '@angular/core';
 
-interface Gender {
+interface Dropdown {
   name: string;
   code: string;
 }
@@ -21,8 +21,10 @@ export class PersonalFormComponent implements OnInit, OnDestroy {
   form!: FormGroup;
   currentStep = 1;
   events: { status: string; label: string; index: number; }[] = [];
-  genders: Gender[] | undefined;
-  selectedGender: Gender | undefined;
+  genders: Dropdown[] | undefined;
+  relations: Dropdown[] | undefined;
+  selectedGender: Dropdown | undefined;
+  selectedRelation: Dropdown | undefined;
 
   constructor(private cdRef: ChangeDetectorRef, private router: Router, private route: ActivatedRoute, private fb: FormBuilder, private jobOfferService: JobOfferService) { }
 
@@ -35,6 +37,24 @@ export class PersonalFormComponent implements OnInit, OnDestroy {
       {name: 'mees', code: 'mees'},
       {name: 'naine', code: 'naine'},
     ];
+
+    this.relations = [
+      {name: 'laps', code: 'laps'},
+      {name: 'abikaasa', code: 'abikaasa'},
+      {name: 'elukaaslane', code: 'elukaaslane'},
+      {name: 'isa', code: 'isa'},
+      {name: 'ema', code: 'ema'},
+      {name: 'vanaisa', code: 'vanaisa'},
+      {name: 'vanaema', code: 'vanaema'},
+      {name: 'vend', code: 'vend'},
+      {name: 'õde', code: 'õde'},
+      {name: 'onu', code: 'onu'},
+      {name: 'tädi', code: 'tädi'},
+      {name: 'õe-/vennapoeg', code: 'õe-/vennapoeg'},
+      {name: 'õe-/vennatütar', code: 'õe-/vennatütar'},
+      {name: 'sõber', code: 'sõber'},
+      {name: 'muu', code: 'muu'}
+    ]
 
     this.form = this.fb.group({
       applicant: this.fb.group({
@@ -93,14 +113,16 @@ export class PersonalFormComponent implements OnInit, OnDestroy {
     console.log(this.form.value);
   }
 
-  getFormStatuses(): string[] {
+  getFormStatuses(): (boolean | undefined)[] {
     return [
-      this.form.get('applicant')?.valid ? 'completed' : 'pending',
-      this.form.get('contactDetails')?.valid ? 'completed' : 'pending',
-      this.form.get('bankAccount')?.valid ? 'completed' : 'pending',
-      this.form.get('emergencyContact')?.valid ? 'completed' : 'pending',
+      this.form.get('applicant')?.touched && this.form.get('applicant')?.invalid,
+      this.form.get('contactDetails')?.touched && this.form.get('contactDetails')?.invalid,
+      this.form.get('bankAccount')?.touched && this.form.get('bankAccount')?.invalid,
+      this.form.get('emergencyContact')?.touched && this.form.get('emergencyContact')?.invalid,
     ];
-  }  
+  }
+  
+  
 
   nextStep(): void {
     if (this.currentStep < 4) {

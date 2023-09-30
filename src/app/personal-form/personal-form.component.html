@@ -1,17 +1,19 @@
 <form class="personal-form-wrapper" [formGroup]="form" (ngSubmit)="onSubmit()">
-  <app-progress-bar [formStatuses]="getFormStatuses()" [currentStep]="currentStep" (stepClick)="goToStep($event)"></app-progress-bar>
+  <app-progress-bar 
+    [formStatuses]="getFormStatuses()"
+    [currentStep]="currentStep" 
+    (stepClick)="goToStep($event)">
+  </app-progress-bar>
 
   <div *ngIf="currentStep === 1" formGroupName="applicant" class="form-container">
     <span class="form input firstName p-float-label">
       <input pInputText formControlName="firstName" id="firstName" type="text"/>
       <label htmlFor="firstName">Eesnimi</label>
-      <small id="firstName">Lisage oma eesnimi.</small>
     </span>
 
     <span class="form input lastName p-float-label">
       <input pInputText formControlName="lastName" id="lastName" type="text"/>
       <label htmlFor="lastName">Perekonnanimi</label>
-      <small id="lastName">Lisage oma perekonnanimi.</small>
     </span>
 
     <span class="form input nationalIdentityNumber p-float-label">
@@ -22,11 +24,11 @@
     <span class="form input dateOfBirth p-float-label">
       <p-inputMask formControlName="dateOfBirth" mask="99/99/99" placeholder="mm/dd/yy"></p-inputMask>
       <label htmlFor="dateOfBirth">Sünnikuupäev</label>
-      <small id="dateOfBirth">Lisage oma sünnikuupäev.</small>
     </span>  
 
     <span class="form input gender p-float-label">
-      <p-dropdown [options]="genders" formControlName="gender" optionLabel="name" optionValue="code" placeholder="Valige oma sugu"></p-dropdown>
+      <p-dropdown [options]="genders" formControlName="gender" optionLabel="name" optionValue="name" placeholder="Valige oma sugu"></p-dropdown>
+      <label htmlFor="gender">Sugu</label>
     </span>
 
   </div>
@@ -35,19 +37,16 @@
     <span class="form input postalAddress p-float-label">
       <input pInputText formControlName="postalAddress" id="postalAddress" type="text"/>
       <label htmlFor="postalAddress">Aadress</label>
-      <small id="postalAddress">Lisage oma aadress</small>
     </span>
 
     <span class="form input emailAddress p-float-label">
       <input pInputText formControlName="emailAddress" id="emailAddress" type="text"/>
       <label htmlFor="emailAddress">E-mail</label>
-      <small id="emailAddress">Lisage oma e-mail</small>
     </span>
 
     <span class="form input phoneNumber p-float-label">
       <input pInputText formControlName="phoneNumber" id="phoneNumber" type="text"/>
       <label htmlFor="phoneNumber">Tel. nr.</label>
-      <small id="phoneNumber">Lisage oma tel. nr.</small>
     </span>
   </div>
 
@@ -55,13 +54,11 @@
     <span class="form input recipientName p-float-label">
       <input pInputText formControlName="recipientName" id="recipientName" type="text"/>
       <label htmlFor="recipientName">Konto omanik</label>
-      <small id="recipientName">Lisage konto omanik</small>
     </span>
 
     <span class="form input iban p-float-label">
       <input pInputText formControlName="iban" id="iban" type="text"/>
       <label htmlFor="iban">IBAN</label>
-      <small id="iban">Lisage konto IBAN</small>
     </span>
   </div>
 
@@ -69,43 +66,22 @@
     <span class="form input ec_firstName p-float-label">
       <input pInputText formControlName="ec_firstName" id="ec_firstName" type="text"/>
       <label htmlFor="ec_firstName">Eesnimi</label>
-      <small id="ec_firstName">Lisage konto hädaabikontakti eesnimi</small>
     </span>
     <span class="form input ec_lastName p-float-label">
       <input pInputText formControlName="ec_lastName" id="ec_lastName" type="text"/>
       <label htmlFor="ec_lastName">Perekonnanimi</label>
-      <small id="ec_lastName">Lisage konto hädaabikontakti perekonnanimi</small>
     </span>
     <span class="form input ec_relationshipType p-float-label">
-      <select id="ec_relationshipType" formControlName="ec_relationshipType">
-        <option value="child">Laps</option>
-        <option value="spouse">Abikaasa</option>
-        <option value="lifepartner">Elukaaslane</option>
-        <option value="father">Isa</option>
-        <option value="mother">Ema</option>
-        <option value="grandfather">Vanaisa</option>
-        <option value="grandmother">Vanaema</option>
-        <option value="brother">Vend</option>
-        <option value="sister">Õde</option>
-        <option value="uncle">Onu</option>
-        <option value="aunt">Tädi</option>
-        <option value="nephew">Õe-/Vennapoeg</option>
-        <option value="niece">Õe-/Vennatütar</option>
-        <option value="friend">Sõber</option>
-        <option value="other">Muu</option>
-      </select>
-      <label htmlFor="ec_relationshipType">Lisage oma suhe oma hädaabikontaktiga</label>
-      <small id="ec_relationshipType">Lisage oma suhe oma hädaabikontaktiga</small>
+      <p-dropdown [options]="relations" formControlName="ec_relationshipType" optionLabel="name" optionValue="name" placeholder="Lisage oma suhe hädaabikontaktiga"></p-dropdown>
+      <label htmlFor="ec_relationshipType">Lisage oma suhe hädaabikontaktiga</label>
     </span>
     <span class="form input ec_phoneNumber p-float-label">
       <input pInputText formControlName="ec_phoneNumber" id="ec_phoneNumber" type="text"/>
       <label htmlFor="ec_phoneNumber">Hädaabikontakti tel. nr.</label>
-      <small id="ec_phoneNumber">Lisage konto hädaabikontakti tel. nr.</small>
     </span>
     <span class="form input ec_emailAddress p-float-label">
       <input pInputText formControlName="ec_emailAddress" id="ec_emailAddress" type="text"/>
       <label htmlFor="ec_emailAddress">Hädaabikontakti e-mail</label>
-      <small id="ec_emailAddress">Lisage hädaabikontakti e-mail</small>
     </span>
   </div>
 
@@ -113,6 +89,5 @@
     <button type="button" (click)="previousStep()" class="btn" [disabled]="currentStep === 1" pButton pRipple label="Tagasi" icon="pi pi-chevron-left"></button>
     <button type="button" (click)="nextStep()" class="btn" [disabled]="currentStep === 4" pButton pRipple label="Edasi" icon="pi pi-chevron-right"></button>
     <button type="submit" class="btn" [disabled]="form.invalid || currentStep !== 4" pButton pRipple label="Kinnita" icon="pi pi-check"></button>
-    <button (click)="logFormValue()">Log Form Value</button>
   </span>
 </form>

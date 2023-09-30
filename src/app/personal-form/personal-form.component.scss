@@ -1,13 +1,17 @@
 @import 'src/styles.scss';
 
-.personal-form-wrapper {
+:host ::ng-deep .personal-form-wrapper {
     display: flex;
     flex-direction: column;
-    margin-top: 15rem;
+    margin-top: 8rem;
     .form-container {
         display: flex;
         flex-direction: column;
+        min-height: 370px;
         .form {
+            input {
+                width: 300px;
+            }
             select {
                 font-size: 1rem;
                 color: #495057;
@@ -25,14 +29,17 @@
                 padding-right: 2px;
             }
         }
+        .p-dropdown {
+            width: 100%;
+        }
         .input {
             display: flex;
             flex-direction: column;
-            margin-bottom: 1rem;
+            margin-bottom: 1.75rem;
             font-family: 'CeraProLight', Arial;
-        }
-        .input.nationalIdentityNumber {
-            margin-bottom: 2rem;
+            .p-placeholder {
+                opacity: 0;
+            }
         }
         small {
             font-family: 'CeraProRegular', Arial;
@@ -48,9 +55,10 @@
         justify-content: center;
         align-items: center;
         .btn {
-            margin: 0 0.5rem;
             background: $primary;
             font-family: 'CeraProRegular', Arial;
+            font-size: 12px;
+            border-radius: 0;
         }
     }
 }
