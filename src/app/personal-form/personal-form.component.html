@@ -26,14 +26,9 @@
     </span>  
 
     <span class="form input gender p-float-label">
-      <select id="gender" formControlName="gender">
-        <option value="" disabled selected>Valige sugu</option>
-        <option value="male">Mees</option>
-        <option value="female">Naine</option>
-        <option value="Other">Muu</option>
-      </select>
-      <small id="gender">Lisage oma sugu.</small>
+      <p-dropdown [options]="genders" formControlName="gender" optionLabel="name" optionValue="code" placeholder="Valige oma sugu"></p-dropdown>
     </span>
+
   </div>
 
   <div *ngIf="currentStep === 2" formGroupName="contactDetails" class="form-container">
@@ -118,5 +113,6 @@
     <button type="button" (click)="previousStep()" class="btn" [disabled]="currentStep === 1" pButton pRipple label="Tagasi" icon="pi pi-chevron-left"></button>
     <button type="button" (click)="nextStep()" class="btn" [disabled]="currentStep === 4" pButton pRipple label="Edasi" icon="pi pi-chevron-right"></button>
     <button type="submit" class="btn" [disabled]="form.invalid || currentStep !== 4" pButton pRipple label="Kinnita" icon="pi pi-check"></button>
+    <button (click)="logFormValue()">Log Form Value</button>
   </span>
 </form>

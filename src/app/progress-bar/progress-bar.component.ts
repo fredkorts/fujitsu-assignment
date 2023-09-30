@@ -11,10 +11,10 @@ export class ProgressBarComponent implements OnChanges {
   @Output() stepClick = new EventEmitter<number>();
 
   steps = [
-    { label: 'Personal Information', status: "pending", icon: 'pi-user', index: 1 },
-    { label: 'Contact Details', status: "pending", icon: 'pi-phone', index: 2 },
-    { label: 'Bank Account', status: "pending", icon: 'pi-euro', index: 3 },
-    { label: 'Emergency Contact', status: "pending", icon: 'pi-heart', index: 4 }
+    { label: 'Isiklik Informatsioon', status: "pending", icon: 'pi-user', index: 1 },
+    { label: 'Kontaktandmed', status: "pending", icon: 'pi-phone', index: 2 },
+    { label: 'Panga Konto', status: "pending", icon: 'pi-euro', index: 3 },
+    { label: 'Hädaabikontakt', status: "pending", icon: 'pi-heart', index: 4 }
   ];
 
   ngOnChanges(): void {

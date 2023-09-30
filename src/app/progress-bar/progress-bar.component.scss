@@ -1,3 +1,5 @@
+@import 'src/styles.scss';
+
 .progress-bar {
     display: flex;
     justify-content: space-between;
@@ -14,7 +16,7 @@
         color: green;
       }
       &.pending {
-        color: orange;
+        color: $primary;
       }
       i {
         font-size: 21px;

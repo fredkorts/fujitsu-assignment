@@ -1,10 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SelectItem } from 'primeng/api';
 import { JobOfferService } from '../job-offer.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { nationalIdentityValidator } from '../helpers/national-identity.validator';
+import { ChangeDetectorRef } from '@angular/core';
+
+interface Gender {
+  name: string;
+  code: string;
+}
 
 @Component({
   selector: 'app-personal-form',
@@ -15,10 +20,11 @@ export class PersonalFormComponent implements OnInit, OnDestroy {
 
   form!: FormGroup;
   currentStep = 1;
-  genders: SelectItem[] = [];
   events: { status: string; label: string; index: number; }[] = [];
+  genders: Gender[] | undefined;
+  selectedGender: Gender | undefined;
 
-  constructor(private router: Router, private route: ActivatedRoute, private fb: FormBuilder, private jobOfferService: JobOfferService) { }
+  constructor(private cdRef: ChangeDetectorRef, private router: Router, private route: ActivatedRoute, private fb: FormBuilder, private jobOfferService: JobOfferService) { }
 
   private subscriptions: Subscription = new Subscription();
 
@@ -26,9 +32,8 @@ export class PersonalFormComponent implements OnInit, OnDestroy {
     const token = this.route.snapshot.paramMap.get('jobOfferSecretAccessToken') ?? 'default-token';
 
     this.genders = [
-      {label: 'Mees', value: 'mees'},
-      {label: 'Naine', value: 'naine'},
-      {label: 'Muu', value: 'muu'},
+      {name: 'mees', code: 'mees'},
+      {name: 'naine', code: 'naine'},
     ];
 
     this.form = this.fb.group({
@@ -80,6 +85,12 @@ export class PersonalFormComponent implements OnInit, OnDestroy {
 
   onBlur(): void {
     this.form.get('applicant')?.get('nationalIdentityNumber')?.updateValueAndValidity();
+    this.cdRef.detectChanges();
+    console.log(this.form.get('applicant')?.get('gender'));
+  }
+
+  logFormValue(): void {
+    console.log(this.form.value);
   }
 
   getFormStatuses(): string[] {
