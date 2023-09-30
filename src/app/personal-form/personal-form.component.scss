@@ -9,10 +9,22 @@
         flex-direction: column;
         min-height: 370px;
         .form {
-            input {
-                width: 300px;
-                border-radius: 0;
+            .p-inputmask {
+                width: 100%;
             }
+            .p-element {
+                border-radius: 0;
+            
+                &.ng-invalid.ng-touched {
+                    border-color: $error;
+                    color: $error;
+                }
+            
+                &.ng-invalid.ng-touched + .label {
+                    color: $error;
+                }
+            }
+            
             select {
                 font-size: 1rem;
                 color: #495057;

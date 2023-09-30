@@ -15,6 +15,7 @@
       color: $primary;
       &.active {
         color: green;
+        border-bottom: 3px solid;
       }
       &.pending {
         color: $primary;

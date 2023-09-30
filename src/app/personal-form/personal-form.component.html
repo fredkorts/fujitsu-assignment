@@ -8,27 +8,27 @@
   <div *ngIf="currentStep === 1" formGroupName="applicant" class="form-container">
     <span class="form input firstName p-float-label">
       <input pInputText formControlName="firstName" id="firstName" type="text"/>
-      <label htmlFor="firstName">Eesnimi</label>
+      <label class="label" htmlFor="firstName">Eesnimi</label>
     </span>
 
     <span class="form input lastName p-float-label">
       <input pInputText formControlName="lastName" id="lastName" type="text"/>
-      <label htmlFor="lastName">Perekonnanimi</label>
+      <label class="label" htmlFor="lastName">Perekonnanimi</label>
     </span>
 
     <span class="form input nationalIdentityNumber p-float-label">
       <input pInputText formControlName="nationalIdentityNumber" id="nationalIdentityNumber" type="text" (blur)="onBlur()"/>
-      <label htmlFor="nationalIdentityNumber">Isikukood</label>  
+      <label class="label" htmlFor="nationalIdentityNumber">Isikukood</label>  
     </span>
 
     <span class="form input dateOfBirth p-float-label">
       <p-inputMask formControlName="dateOfBirth" mask="99/99/99" placeholder="mm/dd/yy"></p-inputMask>
-      <label htmlFor="dateOfBirth">Sünnikuupäev</label>
+      <label class="label" htmlFor="dateOfBirth">Sünnikuupäev</label>
     </span>  
 
     <span class="form input gender p-float-label">
       <p-dropdown [options]="genders" formControlName="gender" optionLabel="name" optionValue="name" placeholder="Valige oma sugu"></p-dropdown>
-      <label htmlFor="gender">Sugu</label>
+      <label class="label" htmlFor="gender">Sugu</label>
     </span>
 
   </div>
@@ -36,52 +36,52 @@
   <div *ngIf="currentStep === 2" formGroupName="contactDetails" class="form-container">
     <span class="form input postalAddress p-float-label">
       <input pInputText formControlName="postalAddress" id="postalAddress" type="text"/>
-      <label htmlFor="postalAddress">Aadress</label>
+      <label class="label" htmlFor="postalAddress">Aadress</label>
     </span>
 
     <span class="form input emailAddress p-float-label">
       <input pInputText formControlName="emailAddress" id="emailAddress" type="text"/>
-      <label htmlFor="emailAddress">E-mail</label>
+      <label class="label" htmlFor="emailAddress">E-mail</label>
     </span>
 
     <span class="form input phoneNumber p-float-label">
       <input pInputText formControlName="phoneNumber" id="phoneNumber" type="text"/>
-      <label htmlFor="phoneNumber">Tel. nr.</label>
+      <label class="label" htmlFor="phoneNumber">Tel. nr.</label>
     </span>
   </div>
 
   <div *ngIf="currentStep === 3" formGroupName="bankAccount" class="form-container">
     <span class="form input recipientName p-float-label">
       <input pInputText formControlName="recipientName" id="recipientName" type="text"/>
-      <label htmlFor="recipientName">Konto omanik</label>
+      <label class="label" htmlFor="recipientName">Konto omanik</label>
     </span>
 
     <span class="form input iban p-float-label">
       <input pInputText formControlName="iban" id="iban" type="text"/>
-      <label htmlFor="iban">IBAN</label>
+      <label class="label" htmlFor="iban">IBAN</label>
     </span>
   </div>
 
   <div *ngIf="currentStep === 4" formGroupName="emergencyContact" class="form-container">
     <span class="form input ec_firstName p-float-label">
       <input pInputText formControlName="ec_firstName" id="ec_firstName" type="text"/>
-      <label htmlFor="ec_firstName">Eesnimi</label>
+      <label class="label" htmlFor="ec_firstName">Eesnimi</label>
     </span>
     <span class="form input ec_lastName p-float-label">
       <input pInputText formControlName="ec_lastName" id="ec_lastName" type="text"/>
-      <label htmlFor="ec_lastName">Perekonnanimi</label>
+      <label class="label" htmlFor="ec_lastName">Perekonnanimi</label>
     </span>
     <span class="form input ec_relationshipType p-float-label">
       <p-dropdown [options]="relations" formControlName="ec_relationshipType" optionLabel="name" optionValue="name" placeholder="Lisage oma suhe hädaabikontaktiga"></p-dropdown>
-      <label htmlFor="ec_relationshipType">Lisage oma suhe hädaabikontaktiga</label>
+      <label class="label" htmlFor="ec_relationshipType">Teie suhe hädaabikontaktiga</label>
     </span>
     <span class="form input ec_phoneNumber p-float-label">
       <input pInputText formControlName="ec_phoneNumber" id="ec_phoneNumber" type="text"/>
-      <label htmlFor="ec_phoneNumber">Hädaabikontakti tel. nr.</label>
+      <label class="label" htmlFor="ec_phoneNumber">Hädaabikontakti tel. nr.</label>
     </span>
     <span class="form input ec_emailAddress p-float-label">
       <input pInputText formControlName="ec_emailAddress" id="ec_emailAddress" type="text"/>
-      <label htmlFor="ec_emailAddress">Hädaabikontakti e-mail</label>
+      <label class="label" htmlFor="ec_emailAddress">Hädaabikontakti e-mail</label>
     </span>
   </div>
 
