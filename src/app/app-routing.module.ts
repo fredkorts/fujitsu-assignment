@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
-import { JobOfferSecretAccessTokenGuard } from './job-offer-secret-access-token.guard';
+import { JobOfferSecretAccessTokenGuard } from './guards/job-offer-secret-access-token.guard';
 
 const routes: Routes = [
   { 
