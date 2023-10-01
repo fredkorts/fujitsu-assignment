@@ -39,7 +39,7 @@ export class PersonalFormComponent implements OnInit, OnDestroy {
         firstName: [null, Validators.required],
         lastName: [null, Validators.required],
         nationalIdentityNumber: [null, [Validators.required, nationalIdentityValidator()]],  // Added custom validator here
-        dateOfBirth: [null],
+        dateOfBirth: [null, Validators.required],
         gender: [null, Validators.required]
       }),
       contactDetails: this.fb.group({
@@ -104,7 +104,17 @@ export class PersonalFormComponent implements OnInit, OnDestroy {
       this.form.get('emergencyContact')?.touched && this.form.get('emergencyContact')?.invalid,
     ];
   }
-  
+
+  // This function returns a formatted date string.
+  formattedDate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('et-EE', { 
+      day: 'numeric', 
+      month: 'long', 
+      year: 'numeric' 
+    });
+  }
+
    // This method increments the current step to navigate to the next step in the form as long as the current step is not the last one.
   nextStep(): void {
     if (this.currentStep < 4) {
