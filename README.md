@@ -8,7 +8,11 @@ Run `npm install` from the root folder of the project before running anything el
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/personal-offer/fk634io$e45tf56ort`. The application will automatically reload if you change any of the source files.
+
+## Personal Offer Token
+
+Navigate to `http://localhost:4200/personal-offer/fk634io$e45tf56ort`. Trying to access the app without a special token will reroute you to the unauthorized page. The token has to be at least 16 character long, contain at least 6 numbers and contain one special character("!, =, %, $").
 
 ## Build
 
