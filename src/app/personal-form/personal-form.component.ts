@@ -8,7 +8,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { genders, relations } from '../data/dropdowns';
 import { Dropdown, Event } from '../data/interfaces';
 import { validateIBAN } from 'ngx-iban-validator';
-
+import { jsPDF } from 'jspdf';
 
 @Component({
   selector: 'app-personal-form',
@@ -24,6 +24,7 @@ export class PersonalFormComponent implements OnInit, OnDestroy {
   relations = relations;
   selectedGender: Dropdown | undefined;
   selectedRelation: Dropdown | undefined;
+  isSubmitted = false;
 
   constructor(private cdRef: ChangeDetectorRef, private router: Router, private route: ActivatedRoute, private fb: FormBuilder, private jobOfferService: JobOfferService) { }
 
@@ -89,6 +90,11 @@ export class PersonalFormComponent implements OnInit, OnDestroy {
     console.log(this.form.get('applicant')?.get('gender'));
   }
 
+  // This method returns the form data at the end when the user submits it.
+  get formData() {
+    return JSON.stringify(this.form.value, null, 2);
+  }
+
   // This method returns an array of boolean values indicating the error state of each form section. It's used for updating the visual indicator on the progress bar.
   getFormStatuses(): (boolean | undefined)[] {
     return [
@@ -120,6 +126,41 @@ export class PersonalFormComponent implements OnInit, OnDestroy {
 
   // This method is executed when the form is submitted. Currently, it logs the form value to the console but can be expanded to include form submission logic.
   onSubmit(): void {
+    this.isSubmitted = true;  // Update this property when the form is submitted
     console.log(this.form.value);
   }
+
+  // This function allows the user to save their submitted data as a PDF file.
+  generatePDF() {
+    const doc = new jsPDF();
+  
+    let y = 10; // Initialize y coordinate
+  
+    const addSectionToPDF = (sectionTitle: string, formData: any) => {
+      doc.text(sectionTitle, 10, y);
+      y += 10; // Increment y coordinate
+  
+      for (const key in formData) {
+        if (formData.hasOwnProperty(key)) {
+          const value = formData[key] ? formData[key] : 'N/A'; // Handling null or undefined values
+          doc.text(`${this.capitalizeFirstLetter(key)}: ${value}`, 10, y);
+          y += 10;
+        }
+      }
+  
+      y += 10; // Leave a gap before the next section
+    };
+  
+    addSectionToPDF('Applicant Information', this.form.get('applicant')?.value);
+    addSectionToPDF('Contact Details', this.form.get('contactDetails')?.value);
+    addSectionToPDF('Bank Account', this.form.get('bankAccount')?.value);
+    addSectionToPDF('Emergency Contact', this.form.get('emergencyContact')?.value);
+  
+    doc.save('form-data.pdf');
+  }
+  
+  capitalizeFirstLetter(string: string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  
 }

@@ -1,104 +1,136 @@
-<form class="personal-form-wrapper" [formGroup]="form" (ngSubmit)="onSubmit()">
-  <app-progress-bar 
-    [formStatuses]="getFormStatuses()"
-    [currentStep]="currentStep" 
-    (stepClick)="goToStep($event)">
-  </app-progress-bar>
-
-  <div *ngIf="currentStep === 1" formGroupName="applicant" class="form-container">
-    <span class="form input firstName p-float-label">
-      <input pInputText formControlName="firstName" id="firstName" type="text"/>
-      <label class="label" htmlFor="firstName">Eesnimi</label>
+<div class="personal-form-wrapper">
+  <form *ngIf="!isSubmitted" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <app-progress-bar 
+      [formStatuses]="getFormStatuses()"
+      [currentStep]="currentStep" 
+      (stepClick)="goToStep($event)">
+    </app-progress-bar>
+  
+    <div *ngIf="currentStep === 1" formGroupName="applicant" class="form-container">
+      <span class="form input firstName p-float-label">
+        <input pInputText formControlName="firstName" id="firstName" type="text"/>
+        <label class="label" htmlFor="firstName">Eesnimi</label>
+      </span>
+  
+      <span class="form input lastName p-float-label">
+        <input pInputText formControlName="lastName" id="lastName" type="text"/>
+        <label class="label" htmlFor="lastName">Perekonnanimi</label>
+      </span>
+  
+      <span class="form input nationalIdentityNumber p-float-label">
+        <input pInputText formControlName="nationalIdentityNumber" id="nationalIdentityNumber" type="text" (blur)="onBlur()"/>
+        <label class="label" htmlFor="nationalIdentityNumber">Isikukood</label>  
+      </span>
+  
+      <span class="form input dateOfBirth p-float-label">
+        <p-inputMask formControlName="dateOfBirth" mask="99/99/99" placeholder="mm/dd/yy"></p-inputMask>
+        <label class="label" htmlFor="dateOfBirth">Sünnikuupäev</label>
+      </span>  
+  
+      <span class="form input gender p-float-label">
+        <p-dropdown [options]="genders" formControlName="gender" optionLabel="name" optionValue="name" placeholder="Valige oma sugu"></p-dropdown>
+        <label class="label" htmlFor="gender">Sugu</label>
+      </span>
+  
+    </div>
+  
+    <div *ngIf="currentStep === 2" formGroupName="contactDetails" class="form-container">
+      <span class="form input postalAddress p-float-label">
+        <input pInputText formControlName="postalAddress" id="postalAddress" type="text"/>
+        <label class="label" htmlFor="postalAddress">Aadress</label>
+      </span>
+  
+      <span class="form input emailAddress p-float-label">
+        <input pInputText formControlName="emailAddress" id="emailAddress" type="text"/>
+        <label class="label" htmlFor="emailAddress">E-mail</label>
+      </span>
+  
+      <span class="form input phoneNumber p-float-label">
+        <input pInputText formControlName="phoneNumber" id="phoneNumber" type="text"/>
+        <label class="label" htmlFor="phoneNumber">Tel. nr.</label>
+      </span>
+    </div>
+  
+    <div *ngIf="currentStep === 3" formGroupName="bankAccount" class="form-container">
+      <span class="form input recipientName p-float-label">
+        <input pInputText formControlName="recipientName" id="recipientName" type="text"/>
+        <label class="label" htmlFor="recipientName">Konto omanik</label>
+      </span>
+  
+      <span class="form input iban p-float-label">
+        <input pInputText formControlName="iban" id="iban" type="text"/>
+        <label class="label" htmlFor="iban">IBAN</label>
+        <small class="errors" *ngIf="form.get('bankAccount')?.get('iban')?.errors && form.get('bankAccount')?.get('iban')?.errors?.['ibanInvalid']">
+          <span *ngIf="form.get('bankAccount')?.get('iban')?.errors?.['error']['countryUnsupported']">
+            Vale riigi IBAN kood.
+          </span>
+          <span *ngIf="form.get('bankAccount')?.get('iban')?.errors?.['error']['codeLengthInvalid']">
+            Koodi pikkus on vale.
+          </span>
+          <span *ngIf="form.get('bankAccount')?.get('iban')?.errors?.['error']['patternInvalid']">
+            Koodi struktuur on vale.
+          </span>
+        </small>
+      </span>
+    </div>
+  
+    <div *ngIf="currentStep === 4" formGroupName="emergencyContact" class="form-container">
+      <span class="form input ec_firstName p-float-label">
+        <input pInputText formControlName="ec_firstName" id="ec_firstName" type="text"/>
+        <label class="label" htmlFor="ec_firstName">Eesnimi</label>
+      </span>
+      <span class="form input ec_lastName p-float-label">
+        <input pInputText formControlName="ec_lastName" id="ec_lastName" type="text"/>
+        <label class="label" htmlFor="ec_lastName">Perekonnanimi</label>
+      </span>
+      <span class="form input ec_relationshipType p-float-label">
+        <p-dropdown [options]="relations" formControlName="ec_relationshipType" optionLabel="name" optionValue="name" placeholder="Lisage oma suhe hädaabikontaktiga"></p-dropdown>
+        <label class="label" htmlFor="ec_relationshipType">Teie suhe hädaabikontaktiga</label>
+      </span>
+      <span class="form input ec_phoneNumber p-float-label">
+        <input pInputText formControlName="ec_phoneNumber" id="ec_phoneNumber" type="text"/>
+        <label class="label" htmlFor="ec_phoneNumber">Hädaabikontakti tel. nr.</label>
+      </span>
+      <span class="form input ec_emailAddress p-float-label">
+        <input pInputText formControlName="ec_emailAddress" id="ec_emailAddress" type="text"/>
+        <label class="label" htmlFor="ec_emailAddress">Hädaabikontakti e-mail</label>
+      </span>
+    </div>
+  
+    <span class="actions">
+      <button type="button" (click)="previousStep()" class="btn" [disabled]="currentStep === 1" pButton pRipple label="Tagasi" icon="pi pi-chevron-left"></button>
+      <button type="button" (click)="nextStep()" class="btn" [disabled]="currentStep === 4" pButton pRipple label="Edasi" icon="pi pi-chevron-right"></button>
+      <button type="submit" class="btn" [disabled]="form.invalid || currentStep !== 4" pButton pRipple label="Kinnita" icon="pi pi-check"></button>
     </span>
+  </form>
 
-    <span class="form input lastName p-float-label">
-      <input pInputText formControlName="lastName" id="lastName" type="text"/>
-      <label class="label" htmlFor="lastName">Perekonnanimi</label>
-    </span>
-
-    <span class="form input nationalIdentityNumber p-float-label">
-      <input pInputText formControlName="nationalIdentityNumber" id="nationalIdentityNumber" type="text" (blur)="onBlur()"/>
-      <label class="label" htmlFor="nationalIdentityNumber">Isikukood</label>  
-    </span>
-
-    <span class="form input dateOfBirth p-float-label">
-      <p-inputMask formControlName="dateOfBirth" mask="99/99/99" placeholder="mm/dd/yy"></p-inputMask>
-      <label class="label" htmlFor="dateOfBirth">Sünnikuupäev</label>
-    </span>  
-
-    <span class="form input gender p-float-label">
-      <p-dropdown [options]="genders" formControlName="gender" optionLabel="name" optionValue="name" placeholder="Valige oma sugu"></p-dropdown>
-      <label class="label" htmlFor="gender">Sugu</label>
-    </span>
-
+  <div *ngIf="isSubmitted" class="submission-success">
+    <i class="pi pi-verified"></i>
+    <h2>Täname!</h2>
+    <div class="summary">
+      <h3>Teie isiklik informatsioon</h3>
+      <p><strong>Eesnimi:</strong> {{form.value.applicant.firstName}}</p>
+      <p><strong>Perekonnanimi:</strong> {{form.value.applicant.lastName}}</p>
+      <p><strong>Isikukood:</strong> {{form.value.applicant.nationalIdentityNumber}}</p>
+      <p><strong>Sünnikuupäev:</strong> {{form.value.applicant.dateOfBirth}}</p>
+      <p><strong>Sugu:</strong> {{form.value.applicant.gender}}</p>
+  
+      <h3>Teie kontaktandmed</h3>
+      <p><strong>Posti aadress:</strong> {{form.value.contactDetails.postalAddress}}</p>
+      <p><strong>Tel. nr.:</strong> {{form.value.contactDetails.phoneNumber}}</p>
+      <p><strong>E-mail:</strong> {{form.value.contactDetails.emailAddress}}</p>
+  
+      <h3>Panga konto</h3>
+      <p><strong>Konto omanik:</strong> {{form.value.bankAccount.recipientName}}</p>
+      <p><strong>IBAN kood:</strong> {{form.value.bankAccount.iban}}</p>
+  
+      <h3>Hädaabi kontakt</h3>
+      <p><strong>Eesnimi:</strong> {{form.value.emergencyContact.ec_firstName}}</p>
+      <p><strong>Perekonnanimi:</strong> {{form.value.emergencyContact.ec_lastName}}</p>
+      <p><strong>Teie suhe:</strong> {{form.value.emergencyContact.ec_relationshipType}}</p>
+      <p><strong>Tel. nr.:</strong> {{form.value.emergencyContact.ec_phoneNumber}}</p>
+      <p><strong>E-mail:</strong> {{form.value.emergencyContact.ec_emailAddress}}</p>
+    </div>
+    <button type="submit" class="btn" styleClass="p-button-sm" (click)="generatePDF()" pButton pRipple label="Lae alla PDF" icon="pi pi-file-pdf"></button>
   </div>
-
-  <div *ngIf="currentStep === 2" formGroupName="contactDetails" class="form-container">
-    <span class="form input postalAddress p-float-label">
-      <input pInputText formControlName="postalAddress" id="postalAddress" type="text"/>
-      <label class="label" htmlFor="postalAddress">Aadress</label>
-    </span>
-
-    <span class="form input emailAddress p-float-label">
-      <input pInputText formControlName="emailAddress" id="emailAddress" type="text"/>
-      <label class="label" htmlFor="emailAddress">E-mail</label>
-    </span>
-
-    <span class="form input phoneNumber p-float-label">
-      <input pInputText formControlName="phoneNumber" id="phoneNumber" type="text"/>
-      <label class="label" htmlFor="phoneNumber">Tel. nr.</label>
-    </span>
-  </div>
-
-  <div *ngIf="currentStep === 3" formGroupName="bankAccount" class="form-container">
-    <span class="form input recipientName p-float-label">
-      <input pInputText formControlName="recipientName" id="recipientName" type="text"/>
-      <label class="label" htmlFor="recipientName">Konto omanik</label>
-    </span>
-
-    <span class="form input iban p-float-label">
-      <input pInputText formControlName="iban" id="iban" type="text"/>
-      <label class="label" htmlFor="iban">IBAN</label>
-      <small class="errors" *ngIf="form.get('bankAccount')?.get('iban')?.errors && form.get('bankAccount')?.get('iban')?.errors?.['ibanInvalid']">
-        <span *ngIf="form.get('bankAccount')?.get('iban')?.errors?.['error']['countryUnsupported']">
-          Vale riigi IBAN kood.
-        </span>
-        <span *ngIf="form.get('bankAccount')?.get('iban')?.errors?.['error']['codeLengthInvalid']">
-          Koodi pikkus on vale.
-        </span>
-        <span *ngIf="form.get('bankAccount')?.get('iban')?.errors?.['error']['patternInvalid']">
-          Koodi struktuur on vale.
-        </span>
-      </small>
-    </span>
-  </div>
-
-  <div *ngIf="currentStep === 4" formGroupName="emergencyContact" class="form-container">
-    <span class="form input ec_firstName p-float-label">
-      <input pInputText formControlName="ec_firstName" id="ec_firstName" type="text"/>
-      <label class="label" htmlFor="ec_firstName">Eesnimi</label>
-    </span>
-    <span class="form input ec_lastName p-float-label">
-      <input pInputText formControlName="ec_lastName" id="ec_lastName" type="text"/>
-      <label class="label" htmlFor="ec_lastName">Perekonnanimi</label>
-    </span>
-    <span class="form input ec_relationshipType p-float-label">
-      <p-dropdown [options]="relations" formControlName="ec_relationshipType" optionLabel="name" optionValue="name" placeholder="Lisage oma suhe hädaabikontaktiga"></p-dropdown>
-      <label class="label" htmlFor="ec_relationshipType">Teie suhe hädaabikontaktiga</label>
-    </span>
-    <span class="form input ec_phoneNumber p-float-label">
-      <input pInputText formControlName="ec_phoneNumber" id="ec_phoneNumber" type="text"/>
-      <label class="label" htmlFor="ec_phoneNumber">Hädaabikontakti tel. nr.</label>
-    </span>
-    <span class="form input ec_emailAddress p-float-label">
-      <input pInputText formControlName="ec_emailAddress" id="ec_emailAddress" type="text"/>
-      <label class="label" htmlFor="ec_emailAddress">Hädaabikontakti e-mail</label>
-    </span>
-  </div>
-
-  <span class="actions">
-    <button type="button" (click)="previousStep()" class="btn" [disabled]="currentStep === 1" pButton pRipple label="Tagasi" icon="pi pi-chevron-left"></button>
-    <button type="button" (click)="nextStep()" class="btn" [disabled]="currentStep === 4" pButton pRipple label="Edasi" icon="pi pi-chevron-right"></button>
-    <button type="submit" class="btn" [disabled]="form.invalid || currentStep !== 4" pButton pRipple label="Kinnita" icon="pi pi-check"></button>
-  </span>
-</form>
+</div>
