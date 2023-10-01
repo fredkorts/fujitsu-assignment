@@ -59,6 +59,17 @@
     <span class="form input iban p-float-label">
       <input pInputText formControlName="iban" id="iban" type="text"/>
       <label class="label" htmlFor="iban">IBAN</label>
+      <small class="errors" *ngIf="form.get('bankAccount')?.get('iban')?.errors && form.get('bankAccount')?.get('iban')?.errors?.['ibanInvalid']">
+        <span *ngIf="form.get('bankAccount')?.get('iban')?.errors?.['error']['countryUnsupported']">
+          Vale riigi IBAN kood.
+        </span>
+        <span *ngIf="form.get('bankAccount')?.get('iban')?.errors?.['error']['codeLengthInvalid']">
+          Koodi pikkus on vale.
+        </span>
+        <span *ngIf="form.get('bankAccount')?.get('iban')?.errors?.['error']['patternInvalid']">
+          Koodi struktuur on vale.
+        </span>
+      </small>
     </span>
   </div>
 

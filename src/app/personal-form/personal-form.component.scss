@@ -23,6 +23,31 @@
                 &.ng-invalid.ng-touched + .label {
                     color: $error;
                 }
+
+                &.p-filled.ng-valid {
+                    border-color: $success;
+                }
+
+                &.p-filled.ng-valid + .label {
+                    color: $success;
+                }
+
+                &.p-inputwrapper.p-inputwrapper-filled.ng-valid {
+                    color: $success;
+                    .p-dropdown {
+                        border-color: $success;
+                    }
+                }
+
+                &.p-inputwrapper-filled.ng-valid {
+                    input {
+                        border-color: $success;
+                    }
+                }
+
+                &.p-inputwrapper-filled.ng-valid + .label {
+                    color: $success;
+                }
             }
             
             select {
@@ -60,7 +85,9 @@
             font-size: 11px;
             padding-left: 0.75rem;
             padding-top: 0.25rem;
-            opacity: 0;
+            &.errors {
+                color: $error;
+            }
         }
     }
     .actions {

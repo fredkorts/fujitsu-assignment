@@ -7,6 +7,7 @@ import { nationalIdentityValidator } from '../helpers/national-identity.validato
 import { ChangeDetectorRef } from '@angular/core';
 import { genders, relations } from '../data/dropdowns';
 import { Dropdown, Event } from '../data/interfaces';
+import { validateIBAN } from 'ngx-iban-validator';
 
 
 @Component({
@@ -47,7 +48,7 @@ export class PersonalFormComponent implements OnInit, OnDestroy {
       }),
       bankAccount: this.fb.group({
         recipientName: [null, Validators.required],
-        iban: [null, Validators.required]
+        iban: [null, [Validators.required, validateIBAN]]
       }),
       emergencyContact: this.fb.group({
         ec_firstName: [null, Validators.required],

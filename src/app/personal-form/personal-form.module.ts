@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { PersonalFormRoutingModule } from './personal-form-routing.module';
@@ -12,6 +12,9 @@ import { ButtonModule } from 'primeng/button';
 import { ProgressBarComponent } from '../progress-bar/progress-bar.component';
 
 @NgModule({
+  schemas: [
+    NO_ERRORS_SCHEMA
+  ],
   declarations: [
     PersonalFormComponent,
     ProgressBarComponent
